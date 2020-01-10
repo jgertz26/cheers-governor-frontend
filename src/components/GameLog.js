@@ -22,7 +22,7 @@ class GameLog extends Component {
 
   componentDidMount() {
     let listItems = numbers.map((num) => {
-      return (<li id={num}>{this.state.hash[num]}</li>);
+      return (<li key={num}>{this.state.hash[num]}</li>);
     })
 
     this.setState({

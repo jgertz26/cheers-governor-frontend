@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import GameLog from "../components/GameLog"
+import CardPile from "../components/CardPile"
 import '../styles/App.css';
 
 class App extends Component {
@@ -13,11 +14,15 @@ class App extends Component {
         <header className="App-header">
         </header>
         <div className='grid-x grid-padding-x'>
-          <div className='cell small-4'>
-            <GameLog/>
+          <div className='game-log cell small-4'>
+            <div className='game-log'>
+              <GameLog/>
+            </div>
           </div>
-          <div className='cell small-8'>
-            Card stuff
+          <div className='cards-container cell small-8'>
+            <div className='cards-container'>
+              <CardPile/>
+            </div>
           </div>
         </div>
       </div>
