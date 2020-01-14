@@ -4,7 +4,7 @@ import "../styles/App.css"
 class CardPile extends Component {
 
 
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
@@ -22,6 +22,12 @@ class CardPile extends Component {
       })
       .then((myJson) => {
         console.log(myJson);
+        this.setState({
+          cardSelected: true,
+          selectedTitle: myJson["title"],
+          selectedDescription: myJson["description"]
+        })
+        this.props.gatherSelectedCardInfo(this.state.cardSelected, this.state.selectedTitle, this.state.selectedDescription);
       });
   }
 

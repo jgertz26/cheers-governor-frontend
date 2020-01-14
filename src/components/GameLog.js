@@ -20,14 +20,32 @@ class GameLog extends Component {
     }
   }
 
-  componentDidMount() {
+  assignSlot(id) {
+    let copy = this.state.hash;
+    copy[id] = this.props.currentCardTitle;
+    this.setState({
+      hash: copy
+    });
+    this.convertHashToListItems();
+    this.props.slotSelected();
+  }
+
+  convertHashToListItems() {
     let listItems = numbers.map((num) => {
-      return (<li key={num}>{this.state.hash[num]}</li>);
+      return (
+        <li className = {this.state.hash[num] == null ? "" : "disabled" } key={num} onClick={() => this.assignSlot(num)}>
+          {this.state.hash[num]}
+        </li>
+      );
     })
 
     this.setState({
       gameListItems: listItems
     })
+  }
+
+  componentDidMount() {
+    this.convertHashToListItems();
   }
 
   render () {
