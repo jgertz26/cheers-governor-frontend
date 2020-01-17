@@ -6,9 +6,8 @@ class CardPile extends Component {
 
   constructor(props) {
     super();
-
     this.state = {
-      cardSelected: false,
+      cardSelected: props.cardSelected,
       selectedTitle: null,
       selectedDescription: null
     }
@@ -31,10 +30,24 @@ class CardPile extends Component {
       });
   }
 
+  renderSelectedCard() {
+    if(this.props.cardSelected) {
+      return (
+        <div className="selected-card">
+          <p><b>{this.state.selectedTitle}</b></p>
+          <p>{this.state.selectedDescription}</p>
+        </div>
+      )
+    }
+  }
+
   render () {
     return (
-      <div id="draw-random" onClick={() => this.drawRandom()} className="card-pile">
-        Draw Random
+      <div>
+        <div id="draw-random" onClick={() => this.drawRandom()} className="card-pile">
+          Draw Random
+        </div>
+        {this.renderSelectedCard()}
       </div>
     )
   }

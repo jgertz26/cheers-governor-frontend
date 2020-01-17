@@ -8,17 +8,18 @@ class App extends Component {
     super();
 
     this.state = {
-      cardSelected: false,
+      isCardSelected: false,
       selectedTitle: null,
       selectedDescription: null
     }
   }
   setSelectedCardInfo = (selected, title, description) => {
       this.setState({
-        cardSelected: selected,
+        isCardSelected: selected,
         selectedTitle: title,
         selectedDescription: description
       });
+
   }
 
   unsetSelectedCardInfo = () => this.setSelectedCardInfo(false, null, null);
@@ -36,7 +37,7 @@ class App extends Component {
           </div>
           <div className='cards-container cell small-8'>
             <div className='cards-container'>
-              <CardPile gatherSelectedCardInfo = {this.setSelectedCardInfo}/>
+              <CardPile cardSelected = {this.state.isCardSelected} gatherSelectedCardInfo = {this.setSelectedCardInfo}/>
             </div>
           </div>
         </div>
