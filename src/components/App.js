@@ -3,24 +3,41 @@ import GameLog from "../components/GameLog"
 import CardPile from "../components/CardPile"
 import '../styles/App.css';
 
+
+
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
+      gameLog: this.setUpGame(),
       isCardSelected: false,
       selectedTitle: null,
       selectedDescription: null
     }
   }
-  setSelectedCardInfo = (selected, title, description) => {
-      this.setState({
-        isCardSelected: selected,
-        selectedTitle: title,
-        selectedDescription: description
-      });
 
+
+  setUpGame = () => {
+    let setUp = [];
+
+    for (var i = 0; i <= 20; i++) {
+      setUp[i] = null
+    }
+    setUp[6]  = "14";
+    setUp[13]  = "7";
+    setUp[20] = "Cheers, Governor!";
+
+    return setUp
   }
+  // setSelectedCardInfo = (selected, title, description) => {
+  //     this.setState({
+  //       isCardSelected: selected,
+  //       selectedTitle: title,
+  //       selectedDescription: description
+  //     });
+
+  // }
 
   unsetSelectedCardInfo = () => this.setSelectedCardInfo(false, null, null);
 
@@ -29,18 +46,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
-        <div className='grid-x grid-padding-x'>
-          <div className='game-log cell small-4'>
-            <div className='game-log'>
-              <GameLog currentCardTitle = {this.state.selectedTitle} slotSelected = {this.unsetSelectedCardInfo}/>
-            </div>
-          </div>
-          <div className='cards-container cell small-8'>
-            <div className='cards-container'>
-              <CardPile cardSelected = {this.state.isCardSelected} gatherSelectedCardInfo = {this.setSelectedCardInfo}/>
-            </div>
-          </div>
-        </div>
+        <GameLog log={this.state.gameLog}/>
       </div>
     );
   }
