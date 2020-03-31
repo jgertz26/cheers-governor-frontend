@@ -40,11 +40,26 @@ class App extends Component {
       .then((myJson) => {
         console.log(myJson);
         this.setState({
-          cardSelected: true,
+          isCardSelected: true,
           selectedTitle: myJson["title"],
           selectedDescription: myJson["description"]
         })
       });
+  }
+
+  assignSlot(index) {
+    if(this.state.isCardSelected) {
+      const logCopy = [...this.state.gameLog]
+      logCopy[index] = this.state.selectedTitle
+
+      this.setState({
+        gameLog: logCopy,
+        isCardSelected: false,
+        selectedTitle: null,
+        selectedDescription: null
+      })
+
+    }
   }
 
   render() {
@@ -53,7 +68,10 @@ class App extends Component {
         <header className="app-header">
         </header>
         <div className="main-container">
-          <GameLog log={this.state.gameLog}/>
+          <GameLog
+            log={this.state.gameLog}
+            click={(index) => this.assignSlot(index)}
+          />
           <CardPile
             click={() => this.drawRandom()}
             selectedTitle={this.state.selectedTitle}

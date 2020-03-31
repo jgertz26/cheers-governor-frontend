@@ -6,7 +6,7 @@ const gameLog = (props) => {
 
   listItems = (
     props.log.map((value, i) => {
-      return <li key={i}>{value}</li>
+      return <li onClick={() => props.click(i)} key={i}>{value}</li>
     })
   )
 
