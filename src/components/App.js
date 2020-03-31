@@ -18,7 +18,7 @@ class App extends Component {
   }
 
 
-  setUpGame = () => {
+  setUpGame() {
     let setUp = [];
 
     for (var i = 0; i <= 20; i++) {
@@ -30,23 +30,36 @@ class App extends Component {
 
     return setUp
   }
-  // setSelectedCardInfo = (selected, title, description) => {
-  //     this.setState({
-  //       isCardSelected: selected,
-  //       selectedTitle: title,
-  //       selectedDescription: description
-  //     });
 
-  // }
 
-  unsetSelectedCardInfo = () => this.setSelectedCardInfo(false, null, null);
+  drawRandom() {
+    fetch('http://localhost:3001/api/v1/cards.json', {mode: 'cors'})
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        console.log(myJson);
+        this.setState({
+          cardSelected: true,
+          selectedTitle: myJson["title"],
+          selectedDescription: myJson["description"]
+        })
+      });
+  }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
+        <header className="app-header">
         </header>
-        <GameLog log={this.state.gameLog}/>
+        <div className="main-container">
+          <GameLog log={this.state.gameLog}/>
+          <CardPile
+            click={() => this.drawRandom()}
+            selectedTitle={this.state.selectedTitle}
+            selectedDescription={this.state.selectedDescription}
+          />
+        </div>
       </div>
     );
   }
