@@ -1,4 +1,4 @@
-.App-header {
+.app-header {
   background-color: #282c34;
   height: 50px;
   display: flex;
@@ -9,9 +9,14 @@
   color: white;
 }
 
+.main-container {
+  display: flex;
+}
+
 .game-log {
   background-color: #A5E2F4;
   height: 100vh;
+  width: 40%;
   font-size: large;
   padding-left: 10px;
 

@@ -3,43 +3,80 @@ import GameLog from "../components/GameLog"
 import CardPile from "../components/CardPile"
 import '../styles/App.css';
 
+
+
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
+      gameLog: this.setUpGame(),
       isCardSelected: false,
       selectedTitle: null,
       selectedDescription: null
     }
   }
-  setSelectedCardInfo = (selected, title, description) => {
-      this.setState({
-        isCardSelected: selected,
-        selectedTitle: title,
-        selectedDescription: description
-      });
 
+
+  setUpGame() {
+    let setUp = [];
+
+    for (var i = 0; i <= 20; i++) {
+      setUp[i] = null
+    }
+    setUp[6]  = "14";
+    setUp[13]  = "7";
+    setUp[20] = "Cheers, Governor!";
+
+    return setUp
   }
 
-  unsetSelectedCardInfo = () => this.setSelectedCardInfo(false, null, null);
+
+  drawRandom() {
+    fetch('http://localhost:3001/api/v1/cards.json', {mode: 'cors'})
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        console.log(myJson);
+        this.setState({
+          isCardSelected: true,
+          selectedTitle: myJson["title"],
+          selectedDescription: myJson["description"]
+        })
+      });
+  }
+
+  assignSlot(index) {
+    if(this.state.isCardSelected) {
+      const logCopy = [...this.state.gameLog]
+      logCopy[index] = this.state.selectedTitle
+
+      this.setState({
+        gameLog: logCopy,
+        isCardSelected: false,
+        selectedTitle: null,
+        selectedDescription: null
+      })
+
+    }
+  }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
+        <header className="app-header">
         </header>
-        <div className='grid-x grid-padding-x'>
-          <div className='game-log cell small-4'>
-            <div className='game-log'>
-              <GameLog currentCardTitle = {this.state.selectedTitle} slotSelected = {this.unsetSelectedCardInfo}/>
-            </div>
-          </div>
-          <div className='cards-container cell small-8'>
-            <div className='cards-container'>
-              <CardPile cardSelected = {this.state.isCardSelected} gatherSelectedCardInfo = {this.setSelectedCardInfo}/>
-            </div>
-          </div>
+        <div className="main-container">
+          <GameLog
+            log={this.state.gameLog}
+            click={(index) => this.assignSlot(index)}
+          />
+          <CardPile
+            click={() => this.drawRandom()}
+            selectedTitle={this.state.selectedTitle}
+            selectedDescription={this.state.selectedDescription}
+          />
         </div>
       </div>
     );
