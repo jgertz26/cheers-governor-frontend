@@ -13,7 +13,41 @@ class App extends Component {
       selectedDescription: null
     }
   }
-  setSelectedCardInfo = (selected, title, description) => {
+
+  setUpGame() {
+    let setUp = [];
+
+    for (var i = 0; i <= 20; i++) {
+      setUp[i] = null
+    }
+    setUp[6]  = "14";
+    setUp[13]  = "7";
+    setUp[20] = "Cheers, Governor!";
+
+    return setUp
+  }
+
+
+  drawRandom() {
+    fetch('http://localhost:3001/api/v1/cards.json', {mode: 'cors'})
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        console.log(myJson);
+        this.setState({
+          isCardSelected: true,
+          selectedTitle: myJson["title"],
+          selectedDescription: myJson["description"]
+        })
+      });
+  }
+
+  assignSlot(index, slotIsNull) {
+    if(this.state.isCardSelected && slotIsNull) {
+      const logCopy = [...this.state.gameLog]
+      logCopy[index] = this.state.selectedTitle
+
       this.setState({
         isCardSelected: selected,
         selectedTitle: title,
@@ -29,17 +63,17 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
-        <div className='grid-x grid-padding-x'>
-          <div className='game-log cell small-4'>
-            <div className='game-log'>
-              <GameLog currentCardTitle = {this.state.selectedTitle} slotSelected = {this.unsetSelectedCardInfo}/>
-            </div>
-          </div>
-          <div className='cards-container cell small-8'>
-            <div className='cards-container'>
-              <CardPile cardSelected = {this.state.isCardSelected} gatherSelectedCardInfo = {this.setSelectedCardInfo}/>
-            </div>
-          </div>
+        <div className="main-container">
+          <GameLog
+            log={this.state.gameLog}
+            click={(index, slotIsNull) => this.assignSlot(index, slotIsNull)}
+            selectable={this.state.isCardSelected}
+          />
+          <CardPile
+            click={() => this.drawRandom()}
+            selectedTitle={this.state.selectedTitle}
+            selectedDescription={this.state.selectedDescription}
+          />
         </div>
       </div>
     );

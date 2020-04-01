@@ -14,11 +14,20 @@
   height: 100vh;
   font-size: large;
   padding-left: 10px;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px 8px #888888;
 
 }
 
 .game-log li {
   padding: 4px;
+}
+
+.selectable:hover {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px 8px #888888;
 }
 
 .cards-container {

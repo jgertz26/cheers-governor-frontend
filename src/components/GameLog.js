@@ -3,6 +3,7 @@ import "../styles/App.css"
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 
+<<<<<<< Updated upstream
 class GameLog extends Component {
 
 
@@ -43,6 +44,18 @@ class GameLog extends Component {
 
     this.setState({
       gameListItems: listItems
+=======
+  listItems = (
+    props.log.map((value, i) => {
+      return (
+        <li
+          onClick={() => {props.click(i, value == null)}}
+          className={(props.selectable && value == null) ? "selectable": ""}
+          key={i}>
+          {value}
+        </li>
+      )
+>>>>>>> Stashed changes
     })
   }
 
@@ -50,10 +63,17 @@ class GameLog extends Component {
     this.convertHashToListItems();
   }
 
+<<<<<<< Updated upstream
   render () {
     return (
       <ol>
         {this.state.gameListItems}
+=======
+  return (
+    <div className="game-log">
+      <ol >
+        {listItems}
+>>>>>>> Stashed changes
       </ol>
     )
   }
