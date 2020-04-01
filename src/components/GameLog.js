@@ -6,13 +6,20 @@ const gameLog = (props) => {
 
   listItems = (
     props.log.map((value, i) => {
-      return <li onClick={() => props.click(i)} key={i}>{value}</li>
+      return (
+        <li
+          onClick={() => {props.click(i, value == null)}}
+          className={(props.selectable && value == null) ? "selectable": ""}
+          key={i}>
+          {value}
+        </li>
+      )
     })
   )
 
   return (
     <div className="game-log">
-      <ol>
+      <ol >
         {listItems}
       </ol>
     </div>

@@ -17,7 +17,6 @@ class App extends Component {
     }
   }
 
-
   setUpGame() {
     let setUp = [];
 
@@ -47,8 +46,8 @@ class App extends Component {
       });
   }
 
-  assignSlot(index) {
-    if(this.state.isCardSelected) {
+  assignSlot(index, slotIsNull) {
+    if(this.state.isCardSelected && slotIsNull) {
       const logCopy = [...this.state.gameLog]
       logCopy[index] = this.state.selectedTitle
 
@@ -70,7 +69,8 @@ class App extends Component {
         <div className="main-container">
           <GameLog
             log={this.state.gameLog}
-            click={(index) => this.assignSlot(index)}
+            click={(index, slotIsNull) => this.assignSlot(index, slotIsNull)}
+            selectable={this.state.isCardSelected}
           />
           <CardPile
             click={() => this.drawRandom()}
