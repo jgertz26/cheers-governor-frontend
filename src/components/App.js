@@ -3,11 +3,14 @@ import GameLog from "../components/GameLog"
 import CardPile from "../components/CardPile"
 import '../styles/App.css';
 
+
+
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
+      gameLog: this.setUpGame(),
       isCardSelected: false,
       selectedTitle: null,
       selectedDescription: null
@@ -49,19 +52,19 @@ class App extends Component {
       logCopy[index] = this.state.selectedTitle
 
       this.setState({
-        isCardSelected: selected,
-        selectedTitle: title,
-        selectedDescription: description
-      });
+        gameLog: logCopy,
+        isCardSelected: false,
+        selectedTitle: null,
+        selectedDescription: null
+      })
 
+    }
   }
-
-  unsetSelectedCardInfo = () => this.setSelectedCardInfo(false, null, null);
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
+        <header className="app-header">
         </header>
         <div className="main-container">
           <GameLog
