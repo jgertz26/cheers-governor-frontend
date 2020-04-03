@@ -1,35 +1,21 @@
 import React, { Component } from "react"
-import GameLog from "../components/GameLog"
+import GameUtils from "../utils/GameUtils"
 import CardPile from "../components/CardPile"
+import GameLog from "../components/GameLog"
+import Header from "../components/Header"
 import '../styles/App.css';
-
-
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      gameLog: this.setUpGame(),
+      gameLog: GameUtils.setUpGame(),
       isCardSelected: false,
       selectedTitle: null,
       selectedDescription: null
     }
   }
-
-  setUpGame() {
-    let setUp = [];
-
-    for (var i = 0; i <= 20; i++) {
-      setUp[i] = null
-    }
-    setUp[6]  = "14";
-    setUp[13]  = "7";
-    setUp[20] = "Cheers, Governor!";
-
-    return setUp
-  }
-
 
   drawRandom() {
     fetch('http://localhost:3001/api/v1/cards.json', {mode: 'cors'})
@@ -64,8 +50,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <header className="app-header">
-        </header>
+        <Header/>
         <div className="main-container">
           <GameLog
             log={this.state.gameLog}
